@@ -1,4 +1,11 @@
 "use strict";
+
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js')
+    .then((reg) => console.log('service worker registered', reg))
+    .catch((err) => console.log("service worker not registered", err));
+}
+
 // save api base and key in object variable
 const api = {
     key: "226a534fb8c967b21c2d3c3b5af602d9",
@@ -29,19 +36,16 @@ function displayResults (weather) {
     console.log(weather);
     // 
     let city = document.querySelector('.location .city');
-    city.innerText = `${weather.name}, ${weather.sys.country}`;
-
     let now = new Date();
     let date = document.querySelector('.location .date');
-    date.innerText = dateBuilder(now);
-
     let temp = document.querySelector('.current .temp');
-    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
-
     let weather_el = document.querySelector('.current .weather');
-    weather_el.innerText = weather.weather[0].main;
-
     let hilow = document.querySelector('.hi-low');
+
+    city.innerText = `${weather.name}, ${weather.sys.country}`;
+    date.innerText = dateBuilder(now);
+    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
+    weather_el.innerText = weather.weather[0].main;
     hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 
     updateLocalStorage(weather);
@@ -118,6 +122,5 @@ function updateLocalStorage (weather) {
         // add item to locastorage (must be added everywhere list is updated)
         localStorage.setItem("weather-data", JSON.stringify(LIST));
         id++;
-        console.log(LIST);
     }
 }
