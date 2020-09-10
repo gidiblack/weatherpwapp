@@ -43,6 +43,8 @@ function displayResults (weather) {
 
     let hilow = document.querySelector('.hi-low');
     hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
+
+    updateLocalStorage(weather);
 }
 
 function dateBuilder (d) {
@@ -58,14 +60,15 @@ function dateBuilder (d) {
 }
 
 // localstorage
-
+// Variables to store recent search array
 let LIST, id;
 
-let historyData = localStorage.getItem("history");
+// get weather-data from localstorage
+let data = localStorage.getItem("weather-data");
 
 // check if data is not empty
-if(historyData){
-    LIST = JSON.parse(historyData);
+if(data){
+    LIST = JSON.parse(data);
     id = LIST.length; // set id to the last one in list
     loadList(LIST); // load the list to the UI
 }else{
@@ -77,14 +80,44 @@ if(historyData){
 // load items to the UI
 function loadList(array){
     array.forEach(function(item){
-        addHistory(item.name, item.id, item.done, item.trash);
+        addSearchHistory(item.city, item.id, item.temp, item.weather_el);
     });
 }
 
-// function addToHistory(event) {
-//     let recentCity = document.querySelector('.card .city');
-//     let recentTemp = document.querySelector('.card .temp');
-//     let recentWeather = document.querySelector('.card .weather');
+// addSearchHistory function
+function addSearchHistory(city, id, temp, weather_el){
+    let searchHistory = document.getElementById("searchHistory");
 
-//     if 
-// }
+    const item = `<div class="card col-sm-4">
+                    <div class="city" id="${id}">${city}</div>
+                    <div class="current">
+                        <div class="temp">${temp}<span>°C</span></div>
+                        <div class="weather">${weather_el}</div>
+                    </div>
+                </div>`;
+    
+    searchHistory.innerHTML += item;
+}
+
+function updateLocalStorage (weather) {
+    //if the input isn't empty
+    if(weather){
+        let city = weather.name + ", " + weather.sys.country;
+        let temp = Math.round(weather.main.temp);
+        let weather_el = weather.weather[0].main;
+        
+        addSearchHistory(city, id, temp, weather_el);
+
+        LIST.push({
+            city : city,
+            id : id,
+            temp : temp,
+            weather_el : weather_el
+        })
+
+        // add item to locastorage (must be added everywhere list is updated)
+        localStorage.setItem("weather-data", JSON.stringify(LIST));
+        id++;
+        console.log(LIST);
+    }
+}
