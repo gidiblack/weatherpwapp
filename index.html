@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <meta name="theme-color" content="#FFE9D2">
+    <meta name="theme-color" content="#117a8b">
     <meta name="description" content="A simple weather app to help you keep track of your favorite cities' forecasts">
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/icon-32x32.png">
@@ -25,15 +25,17 @@
       <input type="button" value="Search" class="btn btn-submit">
     </header>
     <main>
-      <section class="location container">
-        <div class="city"></div>
-        <div class="date"></div>
+      <section class="weather-data container">
+        <div class="location">
+          <div class="city"></div>
+          <div class="date"></div>
+        </div>  
+        <div class="current">
+          <div class="temp"></div>
+          <div class="weather"></div>
+          <div class="hi-low"></div>
+        </div>
       </section>
-      <div class="current">
-        <div class="temp"></div>
-        <div class="weather"></div>
-        <div class="hi-low"></div>
-      </div>
     </main>
 
     <footer>

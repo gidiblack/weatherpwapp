@@ -3,8 +3,8 @@
     "short_name": "GidiWeather",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#FFE9D2",
-    "theme_color": "#FFE9D2",
+    "background_color": "#117a8b",
+    "theme_color": "#117a8b",
     "orientation": "portrait-primary",
     "icons": [
         {

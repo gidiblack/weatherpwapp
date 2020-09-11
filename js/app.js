@@ -1,7 +1,7 @@
 "use strict";
-
+// register service worker
 if ('serviceWorker' in navigator){
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('./sw.js')
     .then((reg) => console.log('service worker registered', reg))
     .catch((err) => console.log("service worker not registered", err));
 }
@@ -11,6 +11,15 @@ const api = {
     key: "226a534fb8c967b21c2d3c3b5af602d9",
     base: "https://api.openweathermap.org/data/2.5/weather?q="
 }
+
+//load default city
+function defaultCity () {
+    fetch(`${api.base}new%20york&units=metric&APPID=${api.key}`)
+        .then(weather => {
+            return weather.json();
+        }).then(displayResults);
+}
+
 // add event listeners on submit button and enter keypress
 const searchBox = document.querySelector('.search-box');
 const submitSearch = document.querySelector('.btn-submit');
@@ -31,22 +40,26 @@ function getResults (query) {
             return weather.json();
         }).then(displayResults);
 }
-
+// display search results 
 function displayResults (weather) {
     console.log(weather);
     // 
     let city = document.querySelector('.location .city');
     let now = new Date();
     let date = document.querySelector('.location .date');
-    let temp = document.querySelector('.current .temp');
-    let weather_el = document.querySelector('.current .weather');
-    let hilow = document.querySelector('.hi-low');
+    let current = document.querySelector('.current');
 
     city.innerText = `${weather.name}, ${weather.sys.country}`;
     date.innerText = dateBuilder(now);
-    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
-    weather_el.innerText = weather.weather[0].main;
-    hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
+    current.innerHTML = `
+                        <div class="temp">${Math.round(weather.main.temp)}<span>°c</span></div>
+                        <figure>
+                            <img class="cityIcon" src="https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png" alt=${weather.weather[0].main}>
+                                <figcaption>${weather.weather[0].description}<br/><b>Feels like
+                                ${Math.round(weather.main.feels_like)}°C</b></figcaption>
+                        </figure>
+                        <div class="hi-low">${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c</div>
+                        `
 
     updateLocalStorage(weather);
 }
@@ -84,19 +97,19 @@ if(data){
 // load items to the UI
 function loadList(array){
     array.forEach(function(item){
-        addSearchHistory(item.city, item.id, item.temp, item.weather_el);
+        addSearchHistory(item.city, item.id, item.temp, item.weather_el, item.weather_icon);
     });
 }
 
 // addSearchHistory function
-function addSearchHistory(city, id, temp, weather_el){
+function addSearchHistory(city, id, temp, weather_el, weather_icon){
     let searchHistory = document.getElementById("searchHistory");
 
-    const item = `<div class="card col-sm-4">
+    const item = `<div class="card">
                     <div class="city" id="${id}">${city}</div>
                     <div class="current">
                         <div class="temp">${temp}<span>°C</span></div>
-                        <div class="weather">${weather_el}</div>
+                        <img class="cityIcon" src=${weather_icon} alt=${weather_el}>
                     </div>
                 </div>`;
     
@@ -109,14 +122,17 @@ function updateLocalStorage (weather) {
         let city = weather.name + ", " + weather.sys.country;
         let temp = Math.round(weather.main.temp);
         let weather_el = weather.weather[0].main;
+        let icon = weather.weather[0].icon;
+        let weather_icon = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
         
-        addSearchHistory(city, id, temp, weather_el);
+        addSearchHistory(city, id, temp, weather_el, weather_icon);
 
         LIST.push({
             city : city,
             id : id,
             temp : temp,
-            weather_el : weather_el
+            weather_el : weather_el,
+            weather_icon : weather_icon
         })
 
         // add item to locastorage (must be added everywhere list is updated)
