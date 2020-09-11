@@ -21,11 +21,12 @@
 <body>
   <div class="app-wrap">
     <header class="container">
-      <input type="text" class="search-box" autocomplete="off" placeholder="Search for a City" aria-placeholder="Search for a City">
+      <label for="search-box" hidden>Search for a City</label>
+      <input type="text" name="search-box" class="search-box" autocomplete="off" placeholder="Search for a City" aria-placeholder="Search for a City">
       <input type="button" value="Search" class="btn btn-submit">
     </header>
     <main>
-      <section class="weather-data container">
+      <section class="weather-data container my-3">
         <div class="location">
           <div class="city"></div>
           <div class="date"></div>
@@ -39,9 +40,9 @@
     </main>
 
     <footer>
-      <section class="history container">
+      <section class="history container my-5">
         <h2>Recent Cities</h2>
-        <div class="row" id="searchHistory">
+        <div class="row my-3" id="searchHistory">
           </div>
       </section>
     </footer>
