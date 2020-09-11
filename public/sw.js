@@ -1,23 +1,23 @@
 const staticCacheName = 'site-static';
 // const dynamicCache = 'site-dynamic-v1';
 const assets = [
-    '/',
-    '/index.html',
-    '/js/app.js',
-    '/css/style.css',
-    '/img/gidi-weather-logo.png',
-    '/img/dawn-img.jpg',
-    '/img/icons/icon-32x32.png',
-    '/img/icons/icon-144x144.png',
-    "/img/icons/icon-16x16.png",
-    "/img/icons/icon-96x96.png",
+    './',
+    './index.html',
+    './js/app.js',
+    './css/style.css',
+    './img/gidi-weather-logo.png',
+    './img/dawn-img.jpg',
+    './img/icons/icon-32x32.png',
+    './img/icons/icon-144x144.png',
+    "./img/icons/icon-16x16.png",
+    "./img/icons/icon-96x96.png",
     "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",
     "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 ];
 
 // install service worker
 self.addEventListener('install', evt => {
-    console.log('service worker has been installed');
+    // console.log('service worker has been installed');
     evt.waitUntil(
         caches.open(staticCacheName).then(cache => {
             console.log('caching shell assets');
@@ -28,7 +28,7 @@ self.addEventListener('install', evt => {
 
 // activate event
 self.addEventListener('activate', evt => {
-    console.log('service worker has been activated');
+    // console.log('service worker has been activated');
     evt.waitUntil(
         caches.keys().then(keys => {
             // console.log(keys);

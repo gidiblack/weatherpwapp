@@ -87,9 +87,9 @@ header input[type="button"] {
 }
 
 .current .temp {
-    font-size: 100px;
+    font-size: 7.5rem;
     font-weight: 500;
-    margin: 30px 0px;
+    margin: .5rem 0;
     text-shadow: 2px 10px rgba(0, 0, 0, 0.6);
 }
 
