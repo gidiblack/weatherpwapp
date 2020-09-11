@@ -30,14 +30,14 @@ header {
 
 header input[type="text"] {
     width: 100%;
-    max-width: 240px;
+    max-width: 600px;
     padding: .8rem 1rem;
     margin-bottom: 1rem;
     border: none;
     outline: none;
-    background-color: rgba(225, 225, 225, 0.3);
+    background-color: rgba(225, 225, 225, 0.5);
     border-radius: 8px;
-    border-bottom: 4px solid #df8e00;
+    border-bottom: 4px solid #117a8b;
     color: #313131;
     font-size: 20px;
     font-weight: 300;
@@ -45,7 +45,7 @@ header input[type="text"] {
 }
 
 header input[type="text"]:focus {
-    background-color: rgba(225, 225, 225, 0.6);
+    background-color: rgba(225, 225, 225, 0.8);
 }
 
 header input[type="text"]::placeholder {
@@ -53,21 +53,27 @@ header input[type="text"]::placeholder {
 }
 
 header input[type="button"] {
-    background-color: #df8e00;
+    background-color: #117a8b;
     color: #FFF;
-    padding: .5rem 2.5rem;
+    padding: .5rem 4rem;
     border: 0;
     text-transform: uppercase;
     font-size: .8rem;
     font-family: inherit;
 }
-main {
+.weather-data {
     flex: 1 1 100%;
     padding: 25px 25px 50px;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    background-color: #117a8b;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 .location .city {
@@ -111,12 +117,13 @@ main {
 } */
 
 .card {
-    background-color: #df8e00;
-    width: 100%;
-    max-width: 180px;
+    background-color: #117a8b;
+    width: 85%;
+    max-width: 10rem;
     padding: 1rem .5rem;
     margin: .4rem .25rem;
     border-radius: 5px;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.5);
 }
 
 .card .city {
